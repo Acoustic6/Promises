@@ -1,8 +1,13 @@
-function applyForVisa(documente) {
+function applyForVisa(document, resolve, reject) {
+    console.log('обработка заявления');
     setTimeout(function() {
-        let visa = {};
-        return visa;//we want to return visa but we cant do it like that. to solve it we need to use  a callback
+        Math.random() > .5 ? resolve({}) : reject('отказ. не достаточног документов.');
     }, 2000);
 }
 
-applyForVisa({});
+applyForVisa({}, function(visa) {
+    console.log(`Виза получена`);
+},
+function(reason) {
+    console.error(reason);
+});
