@@ -7,23 +7,28 @@ function applyForVisa(document) {
     });
     return promise;
 }
-
+//javascript makes a promise itself and resolves it here: (*)
+//i wanna make it myself here: (**)
 applyForVisa({})
     .then(visa => {
         console.info('visa granted');
-        return visa;
+        //return visa; (**)
+        return new Promise(function(resolve1, reject) {
+            resolve1();
+            resolve(visa);
+        })
     })
-    .then(bookHotel)// i pass function as an object as a resolve argument. visa goes there automatically.
-    .then(byTickets)
+    .then(bookHotel)//(*)
+    .then(byTickets)//(*)
     .catch(error => console.log('error'));
 
 function bookHotel(visa) {
     console.info('booking');
     console.log('visa: ' + visa);
-    return visa;// if i dont return byTickets wont get visa
+    return Promise.resolve(visa);//we can resolve with no constructor
 };
 
-function byTickets(visa) { //if frxmpl a dont specify argument here we will see 'error' from catch.
+function byTickets(visa) {
     console.info('buying');
     console.log('visa: ' + visa);
 };
