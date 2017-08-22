@@ -1,23 +1,18 @@
-function applyForVisa(document, resolve, reject) {
+function applyForVisa(document) {
     console.log('обработка заявления');
-    setTimeout(function() {
-        Math.random() > .5 ? resolve({}) : reject('отказ. не достаточног документов.');
-    }, 2000);
+    let promise = new Promise(function(resolve, reject) {
+        setTimeout(function() {
+            Math.random() > .5 ? resolve({}) : reject('отказ. не достаточног документов.');
+        }, 2000);
+    });
+    return promise;
 }
 
-applyForVisa({}, function() {
-    console.log('visa granted');
-    bookHotel(visa, function() {
-        byTickets(visa, function() {
-            console.log('success');
-        }, function() {
-            console.log('tickets buy error');
-        })
-    }, function() {
-        console.log('book hotel error');
-    })    
-}, function(error) {
-});
+applyForVisa({})
+    .then(visa => console.info('visa granted'))
+    .then(bookHotel)
+    .then(byTickets)
+    .catch(error => console.log('error'));
 
 function bookHotel() {
 
