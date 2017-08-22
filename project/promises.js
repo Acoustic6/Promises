@@ -5,9 +5,25 @@ function applyForVisa(document, resolve, reject) {
     }, 2000);
 }
 
-applyForVisa({}, function(visa) {
-    console.log(`Виза получена`);
-},
-function(reason) {
-    console.error(reason);
+applyForVisa({}, function() {
+    console.log('visa granted');
+    bookHotel(visa, function() {
+        byTickets(visa, function() {
+            console.log('success');
+        }, function() {
+            console.log('tickets buy error');
+        })
+    }, function() {
+        console.log('book hotel error');
+    })    
+}, function(error) {
 });
+
+function bookHotel() {
+
+};
+
+function byTickets() {
+
+};
+
