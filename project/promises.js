@@ -12,7 +12,8 @@ applyForVisa({})
     .then(visa => console.info('visa granted'))
     .then(bookHotel)
     .then(byTickets)
-    .catch(error => console.log('error'));
+    .catch(error => console.log('error'))
+    .then(console.log('i am still here'));
 
 function bookHotel() {
 
